@@ -120,19 +120,20 @@ def plot_parity(predict, actual, title=" ", alpha=2/3, save=False):
         plt.show()
 
 # confusion matrix heatmap
+save_plot = True
 if classifier:
     for j in Y.columns:
         # training data
         data_j = "Train"
         data = predictions.loc[(predictions["Data"] == data_j) & (predictions["Name"] == j)]
         matrix = confusion_matrix(data["Actual"], data["Predict"])
-        plot_matrix(matrix, title=j + " - " + data_j, save=True)
+        plot_matrix(matrix, title=j + " - " + data_j, save=save_plot)
 
         # testing data
         data_j = "Test"
         data = predictions.loc[(predictions["Data"] == data_j) & (predictions["Name"] == j)]
         matrix = confusion_matrix(data["Actual"], data["Predict"])
-        plot_matrix(matrix, title=j + " - " + data_j, save=True)
+        plot_matrix(matrix, title=j + " - " + data_j, save=save_plot)
 
 # parity plot
 else:
@@ -141,10 +142,10 @@ else:
         data_j = "Train"
         data = predictions.loc[(predictions["Data"] == data_j) & (predictions["Name"] == j)]
         plot_parity(predict=data["Predict"], actual=data["Actual"], 
-                    title=j + " - " + data_j, save=True)
+                    title=j + " - " + data_j, save=save_plot)
 
         # testing data
         data_j = "Test"
         data = predictions.loc[(predictions["Data"] == data_j) & (predictions["Name"] == j)]
         plot_parity(predict=data["Predict"], actual=data["Actual"], 
-                    title=j + " - " + data_j, save=True)
+                    title=j + " - " + data_j, save=save_plot)

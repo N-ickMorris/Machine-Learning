@@ -121,7 +121,7 @@ def plot_parity(predict, actual, title=" ", alpha=2/3, save=False):
         plt.show()
 
 # confusion matrix heatmap
-save_plot = False
+save_plot = True
 if classifier:
     for j in Y.columns:
         # training data
