@@ -87,7 +87,7 @@ predictions = predictions.reset_index(drop=True)
 
 # In[3]: Visualize the predictions
 
-def plot_matrix(matrix, title=" ", save=False):
+def matrix_plot(matrix, title=" ", save=False):
     # set up labels for the plot
     group_names = ["True Neg","False Pos","False Neg","True Pos"]
     group_counts = ["{0:0.0f}".format(value) for value in
@@ -110,7 +110,7 @@ def plot_matrix(matrix, title=" ", save=False):
     else:
         plt.show()
 
-def plot_parity(predict, actual, title=" ", alpha=2/3, save=False):
+def parity_plot(predict, actual, title=" ", alpha=2/3, save=False):
     # plot the predictions
     fig, ax = plt.subplots()
     sns.scatterplot(predict, actual, color="blue", alpha=alpha, ax=ax)
@@ -131,17 +131,19 @@ if classifier:
         # training data
         data_j = "Train"
         data = predictions.loc[(predictions["Data"] == data_j) & (predictions["Name"] == j)]
-        accuracy = str(np.round(accuracy_score(data["Actual"], data["Predict"]) * 100, 1)) + "%"
+        accuracy = str(np.round(accuracy_score(data["Actual"],
+                                               data["Predict"]) * 100, 1)) + "%"
         matrix = confusion_matrix(data["Actual"], data["Predict"])
-        plot_matrix(matrix, title=j + " - " + data_j + " - Accuracy: " + accuracy, 
+        matrix_plot(matrix, title=j + " - " + data_j + " - Accuracy: " + accuracy,
                     save=save_plot)
 
         # testing data
         data_j = "Test"
         data = predictions.loc[(predictions["Data"] == data_j) & (predictions["Name"] == j)]
-        accuracy = str(np.round(accuracy_score(data["Actual"], data["Predict"]) * 100, 1)) + "%"
+        accuracy = str(np.round(accuracy_score(data["Actual"],
+                                               data["Predict"]) * 100, 1)) + "%"
         matrix = confusion_matrix(data["Actual"], data["Predict"])
-        plot_matrix(matrix, title=j + " - " + data_j + " - Accuracy: " + accuracy, 
+        matrix_plot(matrix, title=j + " - " + data_j + " - Accuracy: " + accuracy,
                     save=save_plot)
 
 # parity plot
@@ -151,12 +153,12 @@ else:
         data_j = "Train"
         data = predictions.loc[(predictions["Data"] == data_j) & (predictions["Name"] == j)]
         r2 = str(np.round(r2_score(data["Actual"], data["Predict"]) * 100, 1)) + "%"
-        plot_parity(predict=data["Predict"], actual=data["Actual"], 
+        parity_plot(predict=data["Predict"], actual=data["Actual"],
                     title=j + " - " + data_j + " - R2: " + r2, save=save_plot)
 
         # testing data
         data_j = "Test"
         data = predictions.loc[(predictions["Data"] == data_j) & (predictions["Name"] == j)]
         r2 = str(np.round(r2_score(data["Actual"], data["Predict"]) * 100, 1)) + "%"
-        plot_parity(predict=data["Predict"], actual=data["Actual"], 
+        parity_plot(predict=data["Predict"], actual=data["Actual"],
                     title=j + " - " + data_j + " - R2: " + r2, save=save_plot)
