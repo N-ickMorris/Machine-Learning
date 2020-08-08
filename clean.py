@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 Cleans up a data set to have no missing values, no outliers, and only numbers
+Adds 2nd order polynomial features
 
 @author: Nick
 """
@@ -10,6 +11,7 @@ import numpy as np
 import pandas as pd
 from sklearn.impute import SimpleImputer
 from sklearn.neighbors import LocalOutlierFactor
+from sklearn.preprocessing import PolynomialFeatures
 
 
 # read in the data
@@ -48,6 +50,12 @@ cutoff = np.quantile(model.negative_outlier_factor_, percent)
 good_idx = np.where(model.negative_outlier_factor_ > cutoff)[0]
 X = X.iloc[good_idx, :].reset_index(drop=True)
 Y = Y.iloc[good_idx, :].reset_index(drop=True)
+
+# add 2nd order polynomial features to X
+poly = PolynomialFeatures(2, include_bias=False)
+x_columns = X.columns
+X = pd.DataFrame(poly.fit_transform(X))
+X.columns = poly.get_feature_names(x_columns)
 
 # export the data
 X.to_csv("X clean.csv", index=False)
