@@ -33,7 +33,8 @@ train_idx = np.array(list(set(X.index.values) - set(test_idx)))
 
 # set up the model
 if classifier:
-    model = MultiOutputClassifier(XGBClassifier(n_estimators=100, learning_rate=0.1,
+    model = MultiOutputClassifier(XGBClassifier(booster="gbtree",
+                                                n_estimators=100, learning_rate=0.1,
                                                 max_depth=7, 
                                                 min_child_weight=1, 
                                                 colsample_bytree=0.8,
@@ -41,7 +42,8 @@ if classifier:
                                                 random_state=42,
                                                 n_jobs=1))
 else:
-    model = MultiOutputRegressor(XGBRegressor(n_estimators=100, learning_rate=0.1,
+    model = MultiOutputRegressor(XGBRegressor(booster="gbtree",
+                                              n_estimators=100, learning_rate=0.1,
                                               max_depth=7, 
                                               min_child_weight=1, 
                                               colsample_bytree=0.8,
