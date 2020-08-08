@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Trains and tests a Random Forest model on data
+Trains and tests an Extreme Gradient Boosting Tree model on data
 
 @author: Nick
 """
@@ -9,7 +9,7 @@ Trains and tests a Random Forest model on data
 import re
 import numpy as np
 import pandas as pd
-from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
+from xgboost.sklearn import XGBRegressor, XGBClassifier
 from sklearn.multioutput import MultiOutputClassifier, MultiOutputRegressor
 from sklearn.metrics import confusion_matrix, accuracy_score, r2_score
 import seaborn as sns
@@ -33,19 +33,21 @@ train_idx = np.array(list(set(X.index.values) - set(test_idx)))
 
 # set up the model
 if classifier:
-    model = MultiOutputClassifier(RandomForestClassifier(n_estimators=100,
-                                                         max_depth=14, 
-                                                         min_samples_leaf=5, 
-                                                         max_features="sqrt", 
-                                                         random_state=42,
-                                                         n_jobs=1))
+    model = MultiOutputClassifier(XGBClassifier(n_estimators=100, learning_rate=0.1,
+                                                max_depth=7, 
+                                                min_child_weight=1, 
+                                                colsample_bytree=0.8,
+                                                subsample=0.8, 
+                                                random_state=42,
+                                                n_jobs=1))
 else:
-    model = MultiOutputRegressor(RandomForestRegressor(n_estimators=100,
-                                                       max_depth=14, 
-                                                       min_samples_leaf=5, 
-                                                       max_features="sqrt", 
-                                                       random_state=42,
-                                                       n_jobs=1))
+    model = MultiOutputRegressor(XGBRegressor(n_estimators=100, learning_rate=0.1,
+                                              max_depth=7, 
+                                              min_child_weight=1, 
+                                              colsample_bytree=0.8,
+                                              subsample=0.8, 
+                                              random_state=42,
+                                              n_jobs=1))
 
 # train the model
 model.fit(X.iloc[train_idx, :], Y.iloc[train_idx, :])

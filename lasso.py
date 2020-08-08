@@ -6,11 +6,12 @@ Trains and tests a Lasso regression model on data
 """
 
 
+import re
 import numpy as np
 import pandas as pd
 from sklearn.linear_model import LogisticRegressionCV, LassoCV
 from sklearn.multioutput import MultiOutputClassifier, MultiOutputRegressor
-from sklearn.metrics import confusion_matrix
+from sklearn.metrics import confusion_matrix, accuracy_score, r2_score
 import seaborn as sns
 import matplotlib.pyplot as plt
 
@@ -36,10 +37,12 @@ if classifier:
                                                        Cs=20, cv=3, tol=1e-4,
                                                        max_iter=500,
                                                        class_weight="balanced",
-                                                       random_state=42))
+                                                       random_state=42,
+                                                       n_jobs=1))
 else:
     model = MultiOutputRegressor(LassoCV(eps=1e-9, n_alphas=20, cv=3,
-                                         tol=1e-4, max_iter=500, random_state=42))
+                                         tol=1e-4, max_iter=500, random_state=42,
+                                         n_jobs=1))
 
 # train the model
 model.fit(X.iloc[train_idx, :], Y.iloc[train_idx, :])
@@ -96,25 +99,27 @@ def plot_matrix(matrix, title=" ", save=False):
     labels = np.asarray(labels).reshape(2,2)
 
     # plot the predictions
-    ax = plt.axes()
+    fig, ax = plt.subplots()
     sns.heatmap(matrix, annot=labels, fmt="", cmap="Blues", ax=ax)
     ax.set_title(title)
     ax.set_xlabel("Predict")
     ax.set_ylabel("Actual")
     if save:
+        title = re.sub("[^A-Za-z0-9]+", "", title)
         plt.savefig(title + ".png")
     else:
         plt.show()
 
 def plot_parity(predict, actual, title=" ", alpha=2/3, save=False):
     # plot the predictions
-    ax = plt.axes()
+    fig, ax = plt.subplots()
     sns.scatterplot(predict, actual, color="blue", alpha=alpha, ax=ax)
     sns.lineplot(actual, actual, color="red", ax=ax)
     ax.set_title(title)
     ax.set_xlabel("Predict")
     ax.set_ylabel("Actual")
     if save:
+        title = re.sub("[^A-Za-z0-9]+", "", title)
         plt.savefig(title + ".png")
     else:
         plt.show()
@@ -126,14 +131,18 @@ if classifier:
         # training data
         data_j = "Train"
         data = predictions.loc[(predictions["Data"] == data_j) & (predictions["Name"] == j)]
+        accuracy = str(np.round(accuracy_score(data["Actual"], data["Predict"]) * 100, 1)) + "%"
         matrix = confusion_matrix(data["Actual"], data["Predict"])
-        plot_matrix(matrix, title=j + " - " + data_j, save=save_plot)
+        plot_matrix(matrix, title=j + " - " + data_j + " - Accuracy: " + accuracy, 
+                    save=save_plot)
 
         # testing data
         data_j = "Test"
         data = predictions.loc[(predictions["Data"] == data_j) & (predictions["Name"] == j)]
+        accuracy = str(np.round(accuracy_score(data["Actual"], data["Predict"]) * 100, 1)) + "%"
         matrix = confusion_matrix(data["Actual"], data["Predict"])
-        plot_matrix(matrix, title=j + " - " + data_j, save=save_plot)
+        plot_matrix(matrix, title=j + " - " + data_j + " - Accuracy: " + accuracy, 
+                    save=save_plot)
 
 # parity plot
 else:
@@ -141,11 +150,13 @@ else:
         # training data
         data_j = "Train"
         data = predictions.loc[(predictions["Data"] == data_j) & (predictions["Name"] == j)]
+        r2 = str(np.round(r2_score(data["Actual"], data["Predict"]) * 100, 1)) + "%"
         plot_parity(predict=data["Predict"], actual=data["Actual"], 
-                    title=j + " - " + data_j, save=save_plot)
+                    title=j + " - " + data_j + " - R2: " + r2, save=save_plot)
 
         # testing data
         data_j = "Test"
         data = predictions.loc[(predictions["Data"] == data_j) & (predictions["Name"] == j)]
+        r2 = str(np.round(r2_score(data["Actual"], data["Predict"]) * 100, 1)) + "%"
         plot_parity(predict=data["Predict"], actual=data["Actual"], 
-                    title=j + " - " + data_j, save=save_plot)
+                    title=j + " - " + data_j + " - R2: " + r2, save=save_plot)
