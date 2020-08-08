@@ -22,6 +22,9 @@ import matplotlib.pyplot as plt
 X = pd.read_csv("X clean.csv")
 Y = pd.read_csv("Y clean.csv")
 
+# standardize the inputs to take on values between 0 and 1
+X = (X - X.min()) / (X.max() - X.min())
+
 # determine if we are building a classifier model
 classifier = np.all(np.unique(Y.to_numpy()) == [0, 1])
 outputs = Y.shape[1]
@@ -53,16 +56,16 @@ def build_nnet(features, targets, layer=[32, 32], learning_rate=0.001, l1_penalt
 
     # compile the model
     model = keras.Model(inputs=inputs, outputs=outputs)
-    model.compile(loss=[loss for j in layer], 
+    model.compile(loss=[loss for j in layer],
                   optimizer=optimizers.Adam(lr=learning_rate))
     return model
 
 # set up the model
 if classifier:
-    model = build_nnet(features=X.shape[1], targets=Y.shape[1], layer=[32, 32], 
+    model = build_nnet(features=X.shape[1], targets=Y.shape[1], layer=[32, 32],
                        learning_rate=0.001, l1_penalty=0, classifier=True)
 else:
-    model = build_nnet(features=X.shape[1], targets=Y.shape[1], layer=[32, 32], 
+    model = build_nnet(features=X.shape[1], targets=Y.shape[1], layer=[32, 32],
                        learning_rate=0.001, l1_penalty=0, classifier=False)
 
 # train the model
@@ -109,6 +112,7 @@ for j in range(outputs):
                                                             len(test_idx))})],
                             axis="index")
 predictions = predictions.reset_index(drop=True)
+predictions.to_csv("keras predictions", index=False)
 
 # In[3]: Visualize the predictions
 
@@ -150,7 +154,7 @@ def parity_plot(predict, actual, title=" ", alpha=2/3, save=False):
         plt.show()
 
 # confusion matrix heatmap
-save_plot = True
+save_plot = False
 if classifier:
     for j in Y.columns:
         # training data

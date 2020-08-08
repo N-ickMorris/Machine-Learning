@@ -22,6 +22,9 @@ import matplotlib.pyplot as plt
 X = pd.read_csv("X clean.csv")
 Y = pd.read_csv("Y clean.csv")
 
+# standardize the inputs to take on values between 0 and 1
+X = (X - X.min()) / (X.max() - X.min())
+
 # determine if we are building a classifier model
 classifier = np.all(np.unique(Y.to_numpy()) == [0, 1])
 outputs = Y.shape[1]
@@ -91,6 +94,7 @@ for j in range(outputs):
                                                             len(test_idx))})],
                             axis="index")
 predictions = predictions.reset_index(drop=True)
+predictions.to_csv("xgboost predictions", index=False)
 
 # In[3]: Visualize the predictions
 
