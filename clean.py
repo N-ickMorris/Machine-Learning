@@ -44,8 +44,8 @@ model.fit(data)
 
 # remove 2% of the data
 percent = 0.02
-cutoff = np.quantile(model.negative_outlier_factor_, 1 - percent)
-good_idx = np.where(model.negative_outlier_factor_ <= cutoff)[0]
+cutoff = np.quantile(model.negative_outlier_factor_, percent)
+good_idx = np.where(model.negative_outlier_factor_ > cutoff)[0]
 X = X.iloc[good_idx, :].reset_index(drop=True)
 Y = Y.iloc[good_idx, :].reset_index(drop=True)
 
