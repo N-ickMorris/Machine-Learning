@@ -33,7 +33,7 @@ test_idx = np.random.choice(a=X.index.values, size=int(X.shape[0] / 5), replace=
 train_idx = np.array(list(set(X.index.values) - set(test_idx)))
 
 # set up the network
-def build_nnet(features, targets, layer=[32, 32], learning_rate=0.001, l1_penalty=0, classifier=False, variational=False):
+def build_nnet(features, targets, layer=[32, 32], learning_rate=0.001, l1_penalty=0, classifier=False):
     # set up the output layer activation and loss metric
     if classifier:
         activation = "sigmoid"
