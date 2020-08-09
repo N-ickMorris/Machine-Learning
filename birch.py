@@ -44,7 +44,7 @@ components["Cluster"] = labels
 components["Data"] = "Train"
 for j in test_idx:
     components.loc[j, "Data"] = "Test"
-components.to_csv("birch and pca", index=False)
+components.to_csv("birch and pca.csv", index=False)
 
 # In[2]: Visualize the clusters
 

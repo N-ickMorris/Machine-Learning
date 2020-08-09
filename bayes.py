@@ -79,7 +79,7 @@ for j in range(outputs):
                                                             len(test_idx))})],
                             axis="index")
 predictions = predictions.reset_index(drop=True)
-predictions.to_csv("bayesian predictions", index=False)
+predictions.to_csv("bayesian predictions.csv", index=False)
 
 # In[3]: Visualize the predictions
 

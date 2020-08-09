@@ -80,7 +80,7 @@ for j in range(outputs):
                                                             len(test_idx))})],
                             axis="index")
 predictions = predictions.reset_index(drop=True)
-predictions.to_csv("gaussian predictions", index=False)
+predictions.to_csv("gaussian predictions.csv", index=False)
 
 # In[3]: Visualize the predictions
 

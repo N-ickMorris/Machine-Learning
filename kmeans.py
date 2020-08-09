@@ -45,7 +45,7 @@ components["Cluster"] = labels
 components["Data"] = "Train"
 for j in test_idx:
     components.loc[j, "Data"] = "Test"
-components.to_csv("kmeans and pca", index=False)
+components.to_csv("kmeans and pca.csv", index=False)
 
 # In[2]: Visualize the clusters
 
@@ -56,7 +56,7 @@ test_score = str(np.round(silhouette_score(X.iloc[test_idx, :],
                                            components.loc[test_idx, "Cluster"]), 3))
 
 # plot the clusters
-save_plot = True
+save_plot = False
 pairs_plot(components.iloc[train_idx,:], vars=components.columns[:3],
            color="Cluster", title="K-Means Clustering - Train - Silhouette: " + train_score,
            save=save_plot)
