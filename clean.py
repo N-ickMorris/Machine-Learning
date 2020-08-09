@@ -39,7 +39,7 @@ Y = pd.get_dummies(Y, columns=y_columns[y_str])
 
 # train a model to detect outliers
 data = pd.concat([Y, X], axis=1)
-model = LocalOutlierFactor(n_neighbors=20, leaf_size=30, n_jobs=1)
+model = LocalOutlierFactor(n_neighbors=20, leaf_size=30, novelty=False, n_jobs=1)
 model.fit(data)
 
 # remove 2% of the data
