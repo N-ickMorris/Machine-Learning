@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """
 Cleans up a data set to have no missing values, no outliers, and only numbers
-Adds 2nd order polynomial features
 
 @author: Nick
 """
