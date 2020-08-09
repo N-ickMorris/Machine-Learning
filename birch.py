@@ -14,8 +14,6 @@ from sklearn.metrics import silhouette_score
 from plots import pairs_plot
 
 
-# In[1]: Train the models
-
 # read in the data
 X = pd.read_csv("X clean.csv")
 
@@ -45,8 +43,6 @@ components["Data"] = "Train"
 for j in test_idx:
     components.loc[j, "Data"] = "Test"
 components.to_csv("birch and pca.csv", index=False)
-
-# In[2]: Visualize the clusters
 
 # tells how well separated the clusters are
 train_score = str(np.round(silhouette_score(X.iloc[train_idx, :],
