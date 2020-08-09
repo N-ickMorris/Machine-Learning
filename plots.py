@@ -50,7 +50,8 @@ def parity_plot(predict, actual, title=" ", alpha=2/3, save=False):
         plt.show()
 
 def pairs_plot(data, vars, color, title=" ", save=False):
-    sns.pairplot(data, vars=vars, hue=color)
+    p = sns.pairplot(data, vars=vars, hue=color)
+    p.fig.suptitle(title, y=1.08)
     if save:
         title = re.sub("[^A-Za-z0-9]+", "", title)
         plt.savefig(title + ".png")
