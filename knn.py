@@ -8,7 +8,7 @@ Trains and tests a Decision Tree model on data
 
 import numpy as np
 import pandas as pd
-from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor
+from sklearn.neighbors import KNeighborsClassifier, KNeighborsRegressor
 from sklearn.multioutput import MultiOutputClassifier, MultiOutputRegressor
 from sklearn.metrics import confusion_matrix, accuracy_score, r2_score
 from plots import matrix_plot, parity_plot
@@ -34,15 +34,15 @@ train_idx = np.array(list(set(X.index.values) - set(test_idx)))
 
 # set up the model
 if classifier:
-    model = MultiOutputClassifier(DecisionTreeClassifier(max_depth=14,
-                                                         min_samples_leaf=5,
-                                                         max_features="sqrt",
-                                                         random_state=42))
+    model = MultiOutputClassifier(KNeighborsClassifier(n_neighbors=5,
+                                                       weights="uniform",
+                                                       leaf_size=30,
+                                                       n_jobs=1))
 else:
-    model = MultiOutputRegressor(DecisionTreeRegressor(max_depth=14,
-                                                       min_samples_leaf=5,
-                                                       max_features="sqrt",
-                                                       random_state=42))
+    model = MultiOutputRegressor(KNeighborsRegressor(n_neighbors=5,
+                                                     weights="uniform",
+                                                     leaf_size=30,
+                                                     n_jobs=1))
 
 # train the model
 model.fit(X.iloc[train_idx, :], Y.iloc[train_idx, :])
@@ -84,7 +84,7 @@ for j in range(outputs):
                                                             len(test_idx))})],
                             axis="index")
 predictions = predictions.reset_index(drop=True)
-predictions.to_csv("tree predictions", index=False)
+predictions.to_csv("knn predictions", index=False)
 
 # In[3]: Visualize the predictions
 
