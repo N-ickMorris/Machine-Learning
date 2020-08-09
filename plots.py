@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Sat Aug  8 20:45:48 2020
+Creates plots for analyzing model performance
 
 @author: Nick
 """
@@ -49,7 +49,7 @@ def parity_plot(predict, actual, title=" ", alpha=2/3, save=False):
     else:
         plt.show()
 
-def pairs_plot(data, vars, color, title, save=False):
+def pairs_plot(data, vars, color, title=" ", save=False):
     sns.pairplot(data, vars=vars, hue=color)
     if save:
         title = re.sub("[^A-Za-z0-9]+", "", title)

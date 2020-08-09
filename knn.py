@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Trains and tests a Decision Tree model on data
+Trains and tests a K Nearest Neighbors model on data
 
 @author: Nick
 """
