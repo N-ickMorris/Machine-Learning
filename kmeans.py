@@ -6,14 +6,12 @@ Trains and tests a k-means clustering model on data
 """
 
 
-import re
 import numpy as np
 import pandas as pd
 from sklearn.cluster import KMeans
 from sklearn.decomposition import PCA
 from sklearn.metrics import silhouette_score
-import seaborn as sns
-import matplotlib.pyplot as plt
+from plots import pairs_plot
 
 
 # In[1]: Train the models
@@ -50,15 +48,6 @@ for j in test_idx:
 components.to_csv("kmeans and pca", index=False)
 
 # In[2]: Visualize the clusters
-
-def pairs_plot(data, vars, color, title, save=False):
-    fig, ax = plt.subplots()
-    sns.pairplot(data, vars=vars, hue=color)
-    if save:
-        title = re.sub("[^A-Za-z0-9]+", "", title)
-        plt.savefig(title + ".png")
-    else:
-        plt.show()
 
 # tells how well separated the clusters are
 train_score = str(np.round(silhouette_score(X.iloc[train_idx, :],

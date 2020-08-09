@@ -6,14 +6,12 @@ Trains and tests a Tensorflow Neural Network model on data
 """
 
 
-import re
 import numpy as np
 import pandas as pd
 import keras
 from keras import layers, optimizers, regularizers
 from sklearn.metrics import confusion_matrix, accuracy_score, r2_score
-import seaborn as sns
-import matplotlib.pyplot as plt
+from plots import matrix_plot, parity_plot
 
 
 # In[1]: Train the model
@@ -35,7 +33,7 @@ test_idx = np.random.choice(a=X.index.values, size=int(X.shape[0] / 5), replace=
 train_idx = np.array(list(set(X.index.values) - set(test_idx)))
 
 # set up the network
-def build_nnet(features, targets, layer=[32, 32], learning_rate=0.001, l1_penalty=0, classifier=False):
+def build_nnet(features, targets, layer=[32, 32], learning_rate=0.001, l1_penalty=0, classifier=False, variational=False):
     # set up the output layer activation and loss metric
     if classifier:
         activation = "sigmoid"
@@ -115,43 +113,6 @@ predictions = predictions.reset_index(drop=True)
 predictions.to_csv("keras predictions", index=False)
 
 # In[3]: Visualize the predictions
-
-def matrix_plot(matrix, title=" ", save=False):
-    # set up labels for the plot
-    group_names = ["True Neg","False Pos","False Neg","True Pos"]
-    group_counts = ["{0:0.0f}".format(value) for value in
-                    matrix.flatten()]
-    group_percentages = ["{0:.2%}".format(value) for value in
-                         matrix.flatten()/np.sum(matrix)]
-    labels = [f"{v1}\n{v2}\n{v3}" for v1, v2, v3 in
-              zip(group_names,group_counts,group_percentages)]
-    labels = np.asarray(labels).reshape(2,2)
-
-    # plot the predictions
-    fig, ax = plt.subplots()
-    sns.heatmap(matrix, annot=labels, fmt="", cmap="Blues", ax=ax)
-    ax.set_title(title)
-    ax.set_xlabel("Predict")
-    ax.set_ylabel("Actual")
-    if save:
-        title = re.sub("[^A-Za-z0-9]+", "", title)
-        plt.savefig(title + ".png")
-    else:
-        plt.show()
-
-def parity_plot(predict, actual, title=" ", alpha=2/3, save=False):
-    # plot the predictions
-    fig, ax = plt.subplots()
-    sns.scatterplot(predict, actual, color="blue", alpha=alpha, ax=ax)
-    sns.lineplot(actual, actual, color="red", ax=ax)
-    ax.set_title(title)
-    ax.set_xlabel("Predict")
-    ax.set_ylabel("Actual")
-    if save:
-        title = re.sub("[^A-Za-z0-9]+", "", title)
-        plt.savefig(title + ".png")
-    else:
-        plt.show()
 
 # confusion matrix heatmap
 save_plot = False
