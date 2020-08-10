@@ -2,6 +2,7 @@
 """
 Creates 2nd order polynomial features
 Creates Isomap Embeddings
+Creates Spectral Embeddings
 Selects best features using Random Forest
 
 @author: Nick
@@ -13,7 +14,7 @@ import pandas as pd
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
 from sklearn.feature_selection import RFE
-from sklearn.manifold import Isomap
+from sklearn.manifold import Isomap, SpectralEmbedding
 
 
 # read in the data
@@ -30,12 +31,19 @@ x_columns = X.columns
 X = pd.DataFrame(poly.fit_transform(X))
 X.columns = poly.get_feature_names(x_columns)
 
-# add isomap embeddings to X
+# create isomap embeddings
 num = 6
 isomap = Isomap(n_neighbors=20, n_components=num, n_jobs=1)
 isoX = pd.DataFrame(isomap.fit_transform(X), 
-                    columns=["C" + str(n + 1) for n in range(num)])
-X = pd.concat([X, isoX], axis=1)
+                    columns=["I" + str(n + 1) for n in range(num)])
+
+# create spectral embeddings
+num = 6
+spectral = SpectralEmbedding(n_neighbors=20, n_components=num, random_state=42, n_jobs=1)
+speX = pd.DataFrame(spectral.fit_transform(X), 
+                    columns=["S" + str(n + 1) for n in range(num)])
+
+X = pd.concat([X, isoX, speX], axis=1)
 
 # separate the data into training and testing
 np.random.seed(1)

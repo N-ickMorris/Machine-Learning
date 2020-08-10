@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Trains and tests a k-means clustering model on data
+Trains and tests a birch clustering model on data
 
 @author: Nick
 """
@@ -55,6 +55,6 @@ save_plot = True
 pairs_plot(components.iloc[train_idx,:], vars=components.columns[:3],
            color="Cluster", title="Birch Clustering - Train - Silhouette: " + train_score,
            save=save_plot)
-pairs_plot(components.iloc[train_idx,:], vars=components.columns[:3],
+pairs_plot(components.iloc[test_idx,:], vars=components.columns[:3],
            color="Cluster", title="Birch Clustering - Test - Silhouette: " + test_score,
            save=save_plot)
