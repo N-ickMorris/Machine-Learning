@@ -52,7 +52,7 @@ test_score = str(np.round(silhouette_score(X.iloc[test_idx, :],
                                            components.loc[test_idx, "Cluster"]), 3))
 
 # plot the clusters
-save_plot = False
+save_plot = True
 pairs_plot(components.iloc[train_idx,:], vars=components.columns[:3],
            color="Cluster", title="K-Means Clustering - Train - Silhouette: " + train_score,
            save=save_plot)
