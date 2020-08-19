@@ -1,6 +1,6 @@
 ## Supervised
 - lasso.py     *:Predict with a Lasso regression model*
-- knn.py       *:Predict with a k Nearest Neighbors model*
+- knn.py       *:Predict with a k-Nearest Neighbors model*
 - bayes.py     *:Predict with a Bayesian model*
 - gaussian.py  *:Predict with a Gaussian Process model*
 - svm.py       *:Predict with a Support Vector Machine model*
@@ -8,13 +8,13 @@
 - forest.py    *:Predict with a Random Forest model*
 - xgboost.py   *:Predict with a XGBoost Tree model*
 - keras.py     *:Predict with a Neural Network model*
-- subsemble.py *:Predict with an ensemble of models and partitions*
-- blend.py     *:Predict with an ensemble of models*
+- subsemble.py *:Predict with an Ensemble of models and partitions*
+- blend.py     *:Predict with an Ensemble of models*
 
 ## Unsupervised
-- kmeans.py *:Predict with a k-means model*
-- birch.py *:Predict with a birch model*
-- mixture.py *:Predict with a gaussian mixture model*
+- kmeans.py *:Predict with a k-Means model*
+- birch.py *:Predict with a Birch model*
+- mixture.py *:Predict with a Gaussian Mixture model*
 
 ## Time Series
 - lstm.py *:Predict with a Long Short Term Memory Neural Network model*
@@ -25,7 +25,7 @@
 
 ## Preprocessing
 - clean.py *:Fill in missing values, remove outliers*
-- features.py *:Generate features and use random forest to select features*
+- features.py *:Generate features and select features*
 
 ## Hypothesis Testing
 - studentT.R *:Use the mean to determine a difference between two groups*
