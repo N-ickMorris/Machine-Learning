@@ -16,6 +16,13 @@
 - birch
 - mixture
 
+## Time Series
+- lstm
+- holt
+- exp
+- dexp
+- arima
+
 ## Preprocessing
 - clean
 - features
