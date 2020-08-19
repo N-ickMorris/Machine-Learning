@@ -18,7 +18,7 @@
 
 ## Time Series
 - lstm.py *:Predict with a Long Short Term Memory Neural Network model*
-- holt.R *:Predict with a Holt Winter's model*
+- holt.R *:Predict with a Triple Exponential Smoothing model*
 - exp.R *:Predict with an Exponential Smoothing model*
 - dexp.R *:Predict with a Double Exponential Smoothing model*
 - arima.R *:Predict with an Autoregressive Integrated Moving Average model*
