@@ -35,4 +35,4 @@
 
 ## Graphics
 - plots
-- plotter
+- ploter
