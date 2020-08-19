@@ -27,5 +27,12 @@
 - clean
 - features
 
+## Hypothesis Testing
+- studentT
+- wilcox
+- chisq
+- fisher
+
 ## Graphics
 - plots
+- plotter
