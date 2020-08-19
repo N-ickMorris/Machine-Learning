@@ -1,5 +1,5 @@
-## Supervised
-- lasso
+## Supervisedl
+- lasso.py *Predict with a Lasso regression model*
 - knn
 - bayes
 - gaussian
