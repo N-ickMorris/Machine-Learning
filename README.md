@@ -30,8 +30,6 @@
 ## Hypothesis Testing
 - studentT.R *:Use the mean to determine a difference between two groups*
 - wilcox.R *:Use the median to determine a difference between two groups*
-- chisq.R
-- fisher.R
 
 ## Graphics
 - plots.py *:Plot with Python's seaborn*
