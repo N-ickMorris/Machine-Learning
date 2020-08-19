@@ -27,10 +27,6 @@
 - clean.py *:Fill in missing values, remove outliers*
 - features.py *:Generate features and select features*
 
-## Hypothesis Testing
-- studentT.R *:Use the mean to determine a difference between two groups*
-- wilcox.R *:Use the median to determine a difference between two groups*
-
 ## Graphics
 - plots.py *:Plot with Python's seaborn*
 - ploter.R *:Plot with R's ggplot2*
