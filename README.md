@@ -19,6 +19,7 @@
 ## Preprocessing
 - clean.py *: Fill in missing values, remove outliers*
 - features.py *: Generate features and select features*
+- embedding.py *: Create non-linear proections*
 - timeLag.py *: Create lagged features for time series*
 
 ## Graphics
