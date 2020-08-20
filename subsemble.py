@@ -19,6 +19,7 @@ from sklearn.gaussian_process import GaussianProcessClassifier, GaussianProcessR
 from sklearn.metrics import confusion_matrix, accuracy_score, r2_score
 from plots import matrix_plot, parity_plot
 
+TIME_SERIES = False
 
 # In[1]: Train the model
 
@@ -34,8 +35,11 @@ classifier = np.all(np.unique(Y.to_numpy()) == [0, 1])
 outputs = Y.shape[1]
 
 # separate the data into training and testing
-np.random.seed(1)
-test_idx = np.random.choice(a=X.index.values, size=int(X.shape[0] / 5), replace=False)
+if TIME_SERIES:
+    test_idx = X.index.values[-int(X.shape[0] / 5):]
+else:
+    np.random.seed(1)
+    test_idx = np.random.choice(a=X.index.values, size=int(X.shape[0] / 5), replace=False)
 train_idx = np.array(list(set(X.index.values) - set(test_idx)))
 
 # set up the model
