@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 """
 Creates 2nd order polynomial features
-Creates Isomap Embeddings
-Creates Spectral Embeddings
 Selects best features using Random Forest
 
 @author: Nick
@@ -30,20 +28,6 @@ poly = PolynomialFeatures(2, include_bias=False)
 x_columns = X.columns
 X = pd.DataFrame(poly.fit_transform(X))
 X.columns = poly.get_feature_names(x_columns)
-
-# create isomap embeddings
-num = 6
-isomap = Isomap(n_neighbors=20, n_components=num, n_jobs=1)
-isoX = pd.DataFrame(isomap.fit_transform(X), 
-                    columns=["I" + str(n + 1) for n in range(num)])
-
-# create spectral embeddings
-num = 6
-spectral = SpectralEmbedding(n_neighbors=20, n_components=num, random_state=42, n_jobs=1)
-speX = pd.DataFrame(spectral.fit_transform(X), 
-                    columns=["S" + str(n + 1) for n in range(num)])
-
-X = pd.concat([X, isoX, speX], axis=1)
 
 # separate the data into training and testing
 np.random.seed(1)
@@ -77,4 +61,4 @@ keep = np.where(keep_idx > 0)[0]
 X = X.iloc[:, keep]
 
 # export the data
-X.to_csv("X features.csv", index=False)
+X.to_csv("X clean.csv", index=False)
