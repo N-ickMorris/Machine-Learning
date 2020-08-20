@@ -1,5 +1,5 @@
 ## Supervised
-- lasso.py     *:Predict with a Lasso regression model*
+- lasso.py     *:Predict with a Lasso Regression model*
 - knn.py       *:Predict with a k-Nearest Neighbors model*
 - bayes.py     *:Predict with a Bayesian model*
 - gaussian.py  *:Predict with a Gaussian Process model*
@@ -28,5 +28,5 @@
 - features.py *:Generate features and select features*
 
 ## Graphics
-- plots.py *:Plot with Python's seaborn*
-- ploter.R *:Plot with R's ggplot2*
+- plots.py *:Plot with seaborn*
+- ploter.R *:Plot with ggplot2*
