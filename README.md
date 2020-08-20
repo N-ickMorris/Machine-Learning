@@ -19,8 +19,8 @@
 ## Preprocessing
 - clean.py *: Fill in missing values, remove outliers*
 - features.py *: Generate features and select features*
-- embedding.py *: Create non-linear proections*
-- timeLag.py *: Create lagged features for time series*
+- embedding.py *: Add non-linear projections to features*
+- timeLag.py *: Add (time) lagged features to features*
 
 ## Graphics
 - plots.py *: Plot with seaborn*
