@@ -22,7 +22,7 @@
 - embedding.py *: Add non-linear projections to features*
 - timeLag.py *: Add time-lagged features to features*
 
-## Time Series
+## Time Series Forecasting
 - lstm.py *: Forecast with a Long Short Term Memory Neural Network model*
 
 ## Natural Language Processing
