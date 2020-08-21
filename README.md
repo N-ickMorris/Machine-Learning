@@ -20,7 +20,7 @@
 - clean.py *: Fill in missing values, remove outliers*
 - features.py *: Generate features and select features*
 - embedding.py *: Add non-linear projections to features*
-- timeLag.py *: Add (time) lagged features to features*
+- timeLag.py *: Add time-lagged features to features*
 
 ## Natural Language Processing
 - group.py *: Cluster words and predict clusters*
