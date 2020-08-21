@@ -23,7 +23,7 @@
 - timeLag.py *: Add (time) lagged features to features*
 
 ## Natural Language Processing
-- group.py *: Group and predict word clusters*
+- group.py *: Cluster words and predict clusters*
 
 ## Graphics
 - plots.py *: Plot with seaborn*
