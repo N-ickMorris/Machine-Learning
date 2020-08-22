@@ -44,7 +44,7 @@ components["Cluster"] = labels
 components["Data"] = "Train"
 for j in test_idx:
     components.loc[j, "Data"] = "Test"
-components.to_csv("birch and pca.csv", index=False)
+components.to_csv("mean shift and pca.csv", index=False)
 
 # tells how well separated the clusters are
 train_score = str(np.round(silhouette_score(X.iloc[train_idx, :],
