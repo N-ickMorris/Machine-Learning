@@ -12,7 +12,6 @@ import pandas as pd
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
 from sklearn.feature_selection import RFE
-from sklearn.manifold import Isomap, SpectralEmbedding
 
 
 # read in the data
