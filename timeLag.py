@@ -43,8 +43,10 @@ Y = pd.read_csv("Y clean.csv")
 outputs = Y.shape[1]
 Y = series_to_supervised(Y, n_in=LAGS, n_out=1)
 
-# add lags to features
-X = pd.concat([X, Y.iloc[:,:-outputs]], axis=1)
+# add lags to features and remove the first LAGS rows
+X = pd.concat([X.iloc[LAGS:,:], Y.iloc[:,:-outputs]], axis=1).reset_index(drop=True)
+Y = Y.iloc[:,-outputs:].reset_index(drop=True)
 
 # export the data
 X.to_csv("X clean.csv", index=False)
+Y.to_csv("Y clean.csv", index=False)
