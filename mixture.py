@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Trains and tests a Gaussian Mixture model on data
+Trains and tests a Gaussian Mixture clustering model on data
 
 @author: Nick
 """
@@ -25,7 +25,7 @@ np.random.seed(1)
 test_idx = np.random.choice(a=X.index.values, size=int(X.shape[0] / 5), replace=False)
 train_idx = np.array(list(set(X.index.values) - set(test_idx)))
 
-# train a k-means model
+# train a Gaussian Mixture model
 cluster = GaussianMixture(n_components=6, n_init=1, covariance_type="full", 
                           tol=1e-3, max_iter=100, random_state=42)
 cluster.fit(X.iloc[train_idx, :])
@@ -34,11 +34,13 @@ cluster.fit(X.iloc[train_idx, :])
 labels = cluster.predict(X)
 
 # train a PCA model
-component = PCA(n_components=3, random_state=42)
+n_comp = 3 # number of principal components
+component = PCA(n_components=n_comp, random_state=42)
 component.fit(X.iloc[train_idx, :])
 
 # compute components for all the data, add cluster labels and train/test labels
-components = pd.DataFrame(component.transform(X), columns=["PC1", "PC2", "PC3"])
+components = pd.DataFrame(component.transform(X), 
+                          columns=["PC" + str(i + 1) for i in range(n_comp)])
 components["Cluster"] = labels
 components["Data"] = "Train"
 for j in test_idx:
@@ -53,9 +55,9 @@ test_score = str(np.round(silhouette_score(X.iloc[test_idx, :],
 
 # plot the clusters
 save_plot = True
-pairs_plot(components.iloc[train_idx,:], vars=components.columns[:3],
-           color="Cluster", title="Gaussian Mixture - Train - Silhouette: " + train_score,
+pairs_plot(components.iloc[train_idx,:], vars=components.columns[:n_comp],
+           color="Cluster", title="Gaussian Mixture Clustering - Train - Silhouette: " + train_score,
            save=save_plot)
-pairs_plot(components.iloc[test_idx,:], vars=components.columns[:3],
-           color="Cluster", title="Gaussian Mixture - Test - Silhouette: " + test_score,
+pairs_plot(components.iloc[test_idx,:], vars=components.columns[:n_comp],
+           color="Cluster", title="Gaussian Mixture Clustering - Test - Silhouette: " + test_score,
            save=save_plot)
