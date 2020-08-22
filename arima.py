@@ -17,11 +17,6 @@ from plots import parity_plot, series_plot
 # load dataset
 Y = pd.read_csv('Y time.csv').iloc[:,[0]]
 
-# set up the model
-LAGS = 3        # the number of lagged variables in the model (Auto Regressive)
-DIFFERENCES = 1 # the number of times to subtract two sucessive obervations
-WINDOW = 3      # the number of observations to look back at (Moving Average)
-
 # split up the data into training and testing
 X = Y.values
 size = int(len(X) * 0.8)
@@ -31,7 +26,7 @@ train, test = X[0:size], X[size:len(X)]
 history = [x for x in train]
 predictions = list()
 for t in range(len(test)):
-	model = ARIMA(history, order=(5,1,0))
+	model = ARIMA(history, order=(3,1,3))
 	model_fit = model.fit(disp=0)
 	output = model_fit.forecast()
 	yhat = output[0]
@@ -41,7 +36,8 @@ for t in range(len(test)):
 	print('predicted=%f, expected=%f' % (yhat, obs))
 
 # collect predictions and actual values
-predictions = pd.DataFrame({"Actual": test.flatten(), "Predict": np.array(predictions).flatten()})
+predictions = pd.DataFrame({"Actual": test.flatten(), 
+                            "Predict": np.array(predictions).flatten()})
 predictions.to_csv("arima predictions.csv", index=False)
 
 # In[2]: Visualize the predictions
