@@ -30,7 +30,7 @@
 - holt.py *: Forecast with a Holt-Winter's model* (Regression Only)
 
 ## Natural Language Processing
-- words.py *: Rank words on how well they describe topics*
+- words.py *: Rank words on how well they describe text clusters*
 
 ## Graphics
 - plots.py *: Plot with seaborn*
