@@ -10,7 +10,7 @@ import pandas as pd
 import keras
 from keras import layers, optimizers, regularizers
 from sklearn.metrics import confusion_matrix, accuracy_score, r2_score
-from plots import matrix_plot, parity_plot
+from plots import matrix_plot, parity_plot, series_plot
 
 
 # In[1]: Train the model
@@ -165,3 +165,7 @@ else:
         r2 = str(np.round(r2_score(data["Actual"], data["Predict"]) * 100, 1)) + "%"
         parity_plot(predict=data["Predict"], actual=data["Actual"],
                     title=j + " - " + data_j + " - R2: " + r2, save=save_plot)
+
+        # series plot
+        series_plot(predict=data["Predict"], actual=data["Actual"], 
+                    title=j + " - " + data_j + " - Forecast: ", save=save_plot)
