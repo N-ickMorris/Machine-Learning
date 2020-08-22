@@ -57,3 +57,18 @@ def pairs_plot(data, vars, color, title=" ", save=False):
         plt.savefig(title + ".png")
     else:
         plt.show()
+
+def series_plot(predict, actual, title=" ", alpha=2/3, save=False):
+    # plot the predictions
+    fig, ax = plt.subplots()
+    idx = [i for i in range(len(predict))]
+    sns.scatterplot(idx, predict, color="blue", alpha=alpha, ax=ax)
+    sns.lineplot(idx, actual, color="red", ax=ax)
+    ax.set_title(title)
+    ax.set_xlabel("Time")
+    ax.set_ylabel("Value")
+    if save:
+        title = re.sub("[^A-Za-z0-9]+", "", title)
+        plt.savefig(title + ".png")
+    else:
+        plt.show()
