@@ -24,7 +24,7 @@
 
 ## Time Series
 - lstm.py *: Forecast with a Long Short Term Memory Neural Network model*
-- arima.py *: Forecast with a Autoregressive Integrated Moving Average model* (Regression Only)
+- arima.py *: Forecast with an Autoregressive Integrated Moving Average model* (Regression Only)
 
 ## Natural Language Processing
 - words.py *: Rank words on how well they describe topics*
