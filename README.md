@@ -15,6 +15,7 @@
 - kmeans.py *: Predict with a k-Means model*
 - birch.py *: Predict with a Birch model*
 - mixture.py *: Predict with a Gaussian Mixture model*
+- mean.py *: Predict with a Mean Shift model*
 
 ## Preprocessing
 - clean.py *: Fill in missing values, remove outliers*
