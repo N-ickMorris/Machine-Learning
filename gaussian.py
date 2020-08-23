@@ -38,11 +38,9 @@ train_idx = np.array(list(set(X.index.values) - set(test_idx)))
 
 # set up the model
 if classifier:
-    model = MultiOutputClassifier(GaussianProcessClassifier(random_state=42,
-                                                            n_jobs=1))
+    model = MultiOutputClassifier(GaussianProcessClassifier(random_state=42))
 else:
-    model = MultiOutputRegressor(GaussianProcessRegressor(random_state=42,
-                                                          n_jobs=1))
+    model = MultiOutputRegressor(GaussianProcessRegressor(random_state=42))
 
 # train the model
 model.fit(X.iloc[train_idx, :], Y.iloc[train_idx, :])
