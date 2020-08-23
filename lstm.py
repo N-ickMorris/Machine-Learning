@@ -50,7 +50,7 @@ def build_nnet(features, targets, timesteps=1, layer=[32, 32], learning_rate=0.0
         loss = "mean_squared_error"
 
     # build the network
-    inputs = keras.Input(shape=(features, timesteps))
+    inputs = keras.Input(shape=(timesteps, features))
     hidden = layers.LSTM(units=layer[0], activation="relu",
                          kernel_regularizer=regularizers.l1(l1_penalty),
                          return_sequences=True)(inputs)
