@@ -11,6 +11,13 @@
 - subsemble.py *: Predict with an Ensemble of models and partitions*
 - blend.py     *: Predict with an Ensemble of models*
 
+## Model Tuning
+- tune_knn *: Tunes a k-Nearest Neighbors model with a random grid search*
+- tune_svm *: Tunes a Support Vector Machine model with a random grid search*
+- tune_tree *: Tunes a Decision Tree model with a random grid search*
+- tune_forest *: Tunes a Random Forest model with a random grid search*
+- tune_xgboost *: Tunes a XGBoost Tree model with a random grid search*
+
 ## Unsupervised
 - kmeans.py *: Predict with a k-Means model*
 - birch.py *: Predict with a Birch model*
