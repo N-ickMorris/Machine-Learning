@@ -9,7 +9,7 @@ Creates lagged features for time series
 import pandas as pd
 
 # how many lags to shift the data?
-LAGS = 3
+LAGS = 1
 
 # convert series to supervised learning
 def series_to_supervised(data, n_in=1, n_out=1, dropnan=True):
