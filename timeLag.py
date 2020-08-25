@@ -12,16 +12,16 @@ import pandas as pd
 LAGS = 1
 
 # convert series to supervised learning
-def series_to_supervised(data, n_in=1, n_out=1, dropnan=True):
+def series_to_supervised(data, n_in_low=0, n_in_up=1, n_out_low=0, n_out_up=1, dropnan=True):
 	n_vars = 1 if type(data) is list else data.shape[1]
 	df = pd.DataFrame(data)
 	cols, names = list(), list()
 	# input sequence (t-n, ... t-1)
-	for i in range(n_in, 0, -1):
+	for i in range(n_in_up, n_in_low, -1):
 		cols.append(df.shift(i))
 		names += [(str(df.columns[j]) + '(t-%d)' % (i)) for j in range(n_vars)]
 	# forecast sequence (t, t+1, ... t+n)
-	for i in range(0, n_out):
+	for i in range(n_out_low, n_out_up):
 		cols.append(df.shift(-i))
 		if i == 0:
 			names += [str(df.columns[j]) + '(t)' for j in range(n_vars)]
@@ -41,10 +41,16 @@ Y = pd.read_csv("Y clean.csv")
 
 # shift Y by LAGS
 outputs = Y.shape[1]
-Y = series_to_supervised(Y, n_in=LAGS, n_out=1)
+Y = series_to_supervised(Y, n_in_low=0,
+                         n_in_up=LAGS, 
+                         n_out_low=0,
+                         n_out_up=1)
 
 # shift X by LAGS
-X = series_to_supervised(X, n_in=LAGS, n_out=0)
+X = series_to_supervised(X, n_in_low=0,
+                         n_in_up=LAGS, 
+                         n_out_low=0,
+                         n_out_up=0)
 
 # add lags to features and remove the first LAGS rows
 X = pd.concat([X, Y.iloc[:,:-outputs]], axis=1).reset_index(drop=True)
