@@ -28,6 +28,9 @@ x_columns = X.columns
 X = pd.DataFrame(poly.fit_transform(X))
 X.columns = poly.get_feature_names(x_columns)
 
+# drop any constant columns in X
+X = X.loc[:, (X != X.iloc[0]).any()]
+
 # set up the model
 if classifier:
     selector = RFE(RandomForestClassifier(n_estimators=50,
