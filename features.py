@@ -37,7 +37,7 @@ if classifier:
                                           max_depth=14,
                                           min_samples_leaf=5,
                                           max_features="sqrt",
-                                          random_state=42,
+                                          random_state=42, class_weight="balanced_subsample",
                                           n_jobs=1), step=0.05, verbose=1)
 else:
     selector = RFE(RandomForestRegressor(n_estimators=50,
