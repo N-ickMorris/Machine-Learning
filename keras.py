@@ -64,14 +64,19 @@ def build_nnet(features, targets, layer=[32, 32], learning_rate=0.001, l1_penalt
 
 # set up the model
 if classifier:
+    num_zeros = len(np.where(Y.to_numpy() == 0)[0])
+    num_ones = Y.shape[0] - num_zeros
+    class_weights = {0: Y.shape[0] / num_zeros,
+                     1: Y.shape[0] / num_ones}
     model = build_nnet(features=X.shape[1], targets=Y.shape[1], layer=[32, 32],
                        learning_rate=0.001, l1_penalty=0, classifier=True)
 else:
+    class_weights = None
     model = build_nnet(features=X.shape[1], targets=Y.shape[1], layer=[32, 32],
                        learning_rate=0.001, l1_penalty=0, classifier=False)
 
 # train the model
-model.fit(X.iloc[train_idx, :], Y.iloc[train_idx, :], epochs=100, batch_size=16)
+model.fit(X.iloc[train_idx, :], Y.iloc[train_idx, :], epochs=100, batch_size=16, class_weight=class_weights)
 
 # In[2]: Collect the predictions
 
