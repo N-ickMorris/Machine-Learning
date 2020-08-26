@@ -41,6 +41,7 @@ if classifier:
     model = MultiOutputClassifier(DecisionTreeClassifier(max_depth=14,
                                                          min_samples_leaf=5,
                                                          max_features="sqrt",
+							 class_weight="balanced",
                                                          random_state=42))
 else:
     model = MultiOutputRegressor(DecisionTreeRegressor(max_depth=14,
