@@ -56,6 +56,9 @@ X = series_to_supervised(X, n_in_low=0,
 X = pd.concat([X, Y.iloc[:,:-outputs]], axis=1).reset_index(drop=True)
 Y = Y.iloc[:,-outputs:].reset_index(drop=True)
 
+# backfill any missing values
+X = X.fillna(method="bfill")
+
 # export the data
 X.to_csv("X clean.csv", index=False)
 Y.to_csv("Y clean.csv", index=False)
