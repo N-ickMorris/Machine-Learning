@@ -38,7 +38,7 @@ train_idx = np.array(list(set(X.index.values) - set(test_idx)))
 
 # set up the model
 if classifier:
-    model = MultiOutputClassifier(LinearSVC(C=1, random_state=42))
+    model = MultiOutputClassifier(LinearSVC(C=1, class_weight="balanced", random_state=42))
 else:
     model = MultiOutputRegressor(LinearSVR(epsilon=0, C=1, random_state=42))
 

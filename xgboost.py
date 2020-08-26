@@ -38,12 +38,15 @@ train_idx = np.array(list(set(X.index.values) - set(test_idx)))
 
 # set up the model
 if classifier:
+    num_zeros = len(np.where(Y.to_numpy() == 0)[0])
+    num_ones = Y.shape[0] - num_zeros
     model = MultiOutputClassifier(XGBClassifier(booster="gbtree",
                                                 n_estimators=100, learning_rate=0.1,
                                                 max_depth=7,
                                                 min_child_weight=1,
                                                 colsample_bytree=0.8,
                                                 subsample=0.8,
+                                                scale_pos_weight = num_zeros / num_ones,
                                                 random_state=42,
                                                 n_jobs=1))
 else:

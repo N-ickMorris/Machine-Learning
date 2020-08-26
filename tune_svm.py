@@ -13,8 +13,8 @@ from sklearn.model_selection import RandomizedSearchCV
 
 
 # read in the data
-X = pd.read_csv("X clean.csv")
-Y = pd.read_csv("Y clean.csv").iloc[:,[0]]
+X = pd.read_csv("X titanic.csv")
+Y = pd.read_csv("Y titanic.csv").iloc[:,[0]]
 
 # standardize the inputs to take on values between 0 and 1
 X = (X - X.min()) / (X.max() - X.min())
@@ -24,7 +24,7 @@ classifier = np.all(np.unique(Y.to_numpy()) == [0, 1])
 
 # set up the model
 if classifier:
-    model = LinearSVC(C=1, random_state=42)
+    model = LinearSVC(C=1, class_weight="balanced", random_state=42)
     parameters = {"C": [0.001, 0.01, 0.5, 1, 1.5, 2]}
 else:
     model = LinearSVR(epsilon=0, C=1, random_state=42)
@@ -40,4 +40,4 @@ search = grid.fit(X, Y)
 
 # export results
 results = pd.DataFrame(search.best_params_, index=[0])
-results.to_csv("tune svm.csv", index=False)
+# results.to_csv("tune svm.csv", index=False)
