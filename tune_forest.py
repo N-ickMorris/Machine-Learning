@@ -13,8 +13,8 @@ from sklearn.model_selection import RandomizedSearchCV
 
 
 # read in the data
-X = pd.read_csv("X clean.csv")
-Y = pd.read_csv("Y clean.csv").iloc[:,[0]]
+X = pd.read_csv("X arrest.csv")
+Y = pd.read_csv("Y arrest.csv").iloc[:,[0]]
 
 # standardize the inputs to take on values between 0 and 1
 X = (X - X.min()) / (X.max() - X.min())
@@ -28,6 +28,7 @@ if classifier:
                                    max_depth=14,
                                    min_samples_leaf=5,
                                    max_features="sqrt",
+                                   class_weight="balanced_subsample",
                                    random_state=42,
                                    n_jobs=1)
 else:
