@@ -38,7 +38,7 @@ def matrix_plot(matrix, title=" ", save=False):
 def parity_plot(predict, actual, title=" ", alpha=2/3, save=False):
     # plot the predictions
     fig, ax = plt.subplots()
-    sns.scatterplot(predict, actual, color="blue", alpha=alpha, ax=ax)
+    sns.scatterplot(actual, predict, color="blue", alpha=alpha, ax=ax)
     sns.lineplot(actual, actual, color="red", ax=ax)
     ax.set_title(title)
     ax.set_xlabel("Predict")
