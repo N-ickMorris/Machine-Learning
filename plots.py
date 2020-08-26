@@ -41,8 +41,8 @@ def parity_plot(predict, actual, title=" ", alpha=2/3, save=False):
     sns.scatterplot(actual, predict, color="blue", alpha=alpha, ax=ax)
     sns.lineplot(actual, actual, color="red", ax=ax)
     ax.set_title(title)
-    ax.set_xlabel("Predict")
-    ax.set_ylabel("Actual")
+    ax.set_ylabel("Predict")
+    ax.set_xlabel("Actual")
     if save:
         title = re.sub("[^A-Za-z0-9]+", "", title)
         plt.savefig(title + ".png")
