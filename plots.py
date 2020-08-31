@@ -72,3 +72,13 @@ def series_plot(predict, actual, title=" ", alpha=2/3, save=False):
         plt.savefig(title + ".png")
     else:
         plt.show()
+
+def scatter_plot(data, x, y, color, title=" ", legend=True, save=False):
+    p = sns.lmplot(x=x, y=y, data=data, fit_reg=False, hue=color, 
+                   legend=legend)
+    p.fig.suptitle(title, y=1.08)
+    if save:
+        title = re.sub("[^A-Za-z0-9]+", "", title)
+        plt.savefig(title + ".png")
+    else:
+        plt.show()
