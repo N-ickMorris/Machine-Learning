@@ -8,9 +8,6 @@ Creates lagged features for time series
 
 import pandas as pd
 
-# how many lags to shift the data?
-LAGS = 1
-
 # convert series to supervised learning
 def series_to_supervised(data, n_in_low=0, n_in_up=1, n_out_low=0, n_out_up=1, dropnan=True):
 	n_vars = 1 if type(data) is list else data.shape[1]
@@ -39,16 +36,20 @@ def series_to_supervised(data, n_in_low=0, n_in_up=1, n_out_low=0, n_out_up=1, d
 X = pd.read_csv("X clean.csv")
 Y = pd.read_csv("Y clean.csv")
 
+# save a copy
+X = pd.read_csv("X clean features.csv")
+Y = pd.read_csv("Y clean features.csv")
+
 # shift Y by LAGS
 outputs = Y.shape[1]
 Y = series_to_supervised(Y, n_in_low=0,
-                         n_in_up=LAGS, 
+                         n_in_up=1, 
                          n_out_low=0,
                          n_out_up=1)
 
 # shift X by LAGS
 X = series_to_supervised(X, n_in_low=0,
-                         n_in_up=LAGS, 
+                         n_in_up=1, 
                          n_out_low=0,
                          n_out_up=0)
 
