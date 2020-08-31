@@ -32,6 +32,7 @@
 
 ## Time Series
 - lstm.py *: Forecast with a Long Short Term Memory Neural Network model*
+- hmm.py *: Forecast with a Hidden Markov Model*
 - arima.py *: Forecast with an Autoregressive Integrated Moving Average model* (Regression Only)
 - exp.py *: Forecast with a Simple Exponential Smoothing model* (Regression Only)
 - holt.py *: Forecast with a Holt-Winter's model* (Regression Only)
