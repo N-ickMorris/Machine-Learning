@@ -28,9 +28,11 @@
 - lle.py *: Embed with a Locally Linear Embedding model*
 
 ## Preprocessing
-- clean.py *: Fill in missing values, remove outliers*
+- clean.py *: Fill in missing values, makes all value numeric*
+- outliers.py *: Remove outliers*
 - features.py *: Generate features and select features*
 - embedding.py *: Add embeddings to features*
+- clustering.py *: Add clusters to features*
 - timeLag.py *: Add time-lagged features to features*
 
 ## Time Series
