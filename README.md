@@ -30,7 +30,7 @@
 ## Preprocessing
 - clean.py *: Fill in missing values, remove outliers*
 - features.py *: Generate features and select features*
-- embedding.py *: Add non-linear projections to features*
+- embedding.py *: Add embeddings to features*
 - timeLag.py *: Add time-lagged features to features*
 
 ## Time Series
