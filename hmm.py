@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Trains and tests a Holt-Winter's model on data
+Trains and tests a Hidden Markov Model on data
 
 @author: Nick
 """
@@ -24,7 +24,7 @@ train, test = X[0:size], X[size:len(X)]
 history = [x for x in train]
 states = list()
 for t in range(len(test)):
-	model = hmm.GaussianHMM(n_components=3, covariance_type="full", n_iter=100)
+	model = hmm.GaussianHMM(n_components=4, covariance_type="full", n_iter=100)
 	model.fit(history)
 	obs = [test[t]]
 	output = model.predict(obs)
@@ -48,5 +48,3 @@ scatter_plot(data=states,
 
 pairs_plot(data=states, vars=["index", "Actual"], 
            color="State", title="Hidden Markov Model", save=False)
-
-

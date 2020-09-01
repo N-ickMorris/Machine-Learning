@@ -8,6 +8,7 @@ Creates plots for analyzing model performance
 
 import re
 import numpy as np
+import scipy.cluster.hierarchy as sch
 import seaborn as sns
 import matplotlib.pyplot as plt
 
@@ -82,3 +83,25 @@ def scatter_plot(data, x, y, color, title=" ", legend=True, save=False):
         plt.savefig(title + ".png")
     else:
         plt.show()
+
+
+def corr_plot(df, size=10):
+    # group columns together with hierarchical clustering
+    X = df.corr().values
+    d = sch.distance.pdist(X)
+    L = sch.linkage(d, method="complete")
+    ind = sch.fcluster(L, 0.5*d.max(), "distance")
+    columns = [df.columns.tolist()[i] for i in list((np.argsort(ind)))]
+    df = df.reindex(columns, axis=1)
+    
+    # compute the correlation matrix for the received dataframe
+    corr = df.corr()
+    
+    # plot the correlation matrix
+    fig, ax = plt.subplots(figsize=(size, size))
+    cax = ax.matshow(corr, cmap="RdYlGn")
+    plt.xticks(range(len(corr.columns)), corr.columns, rotation=90);
+    plt.yticks(range(len(corr.columns)), corr.columns);
+    
+    # add the colorbar legend
+    cbar = fig.colorbar(cax, ticks=[-1, 0, 1], aspect=40, shrink=.8)
