@@ -19,10 +19,13 @@
 - tune_xgboost.py *: Tunes a XGBoost Tree model with a random grid search*
 
 ## Unsupervised
-- kmeans.py *: Predict with a k-Means model*
-- birch.py *: Predict with a Birch model*
-- mixture.py *: Predict with a Gaussian Mixture model*
-- mean.py *: Predict with a Mean Shift model*
+- kmeans.py *: Cluster with a k-Means model*
+- birch.py *: Cluster with a Birch model*
+- mixture.py *: Cluster with a Gaussian Mixture model*
+- mean.py *: Cluster with a Mean Shift model*
+- pca.py *: Embed with a Principal Component Analysis model*
+- isomap.py *: Embed with a Isomap model*
+- lle.py *: Embed with a Locally Linear Embedding model*
 
 ## Preprocessing
 - clean.py *: Fill in missing values, remove outliers*
@@ -32,13 +35,13 @@
 
 ## Time Series
 - lstm.py *: Forecast with a Long Short Term Memory Neural Network model*
-- hmm.py *: Forecast with a Hidden Markov Model*
+- hmm.py *: Forecast (states) with a Hidden Markov Model*
 - arima.py *: Forecast with an Autoregressive Integrated Moving Average model* (Regression Only)
 - exp.py *: Forecast with a Simple Exponential Smoothing model* (Regression Only)
 - holt.py *: Forecast with a Holt-Winter's model* (Regression Only)
 
 ## Natural Language Processing
-- words.py *: Rank words on how well they describe text clusters*
+- words.py *: Rank words on how well they predict text clusters (topics)*
 
 ## Graphics
 - plots.py *: Plot with seaborn*
