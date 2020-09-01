@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Cleans up a data set to have no missing values, no outliers, and only numbers
+Cleans up a data set to have no missing values and only numbers
 
 @author: Nick
 """
@@ -9,7 +9,6 @@ Cleans up a data set to have no missing values, no outliers, and only numbers
 import numpy as np
 import pandas as pd
 from sklearn.impute import SimpleImputer
-from sklearn.neighbors import LocalOutlierFactor
 
 
 # read in the data
@@ -36,18 +35,6 @@ Y = pd.DataFrame(impute.fit_transform(Y), columns=y_columns)
 # convert any string columns to binary columns
 X = pd.get_dummies(X, columns=x_columns[x_str])
 Y = pd.get_dummies(Y, columns=y_columns[y_str])
-
-# train a model to detect outliers
-data = pd.concat([Y, X], axis=1)
-model = LocalOutlierFactor(n_neighbors=20, leaf_size=30, novelty=False, n_jobs=1)
-model.fit(data)
-
-# remove 2% of the data
-percent = 0.02
-cutoff = np.quantile(model.negative_outlier_factor_, percent)
-good_idx = np.where(model.negative_outlier_factor_ > cutoff)[0]
-X = X.iloc[good_idx, :].reset_index(drop=True)
-Y = Y.iloc[good_idx, :].reset_index(drop=True)
 
 # export the data
 X.to_csv("X clean.csv", index=False)

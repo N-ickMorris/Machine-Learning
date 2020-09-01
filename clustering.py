@@ -25,6 +25,7 @@ cluster.fit(X)
 labels = pd.DataFrame(cluster.predict(X), columns=["Cluster"])
 
 # convert any string columns to binary columns
+labels["Cluster"] = labels["Cluster"].astype(str)
 labels = pd.get_dummies(labels)
 
 # export the data
