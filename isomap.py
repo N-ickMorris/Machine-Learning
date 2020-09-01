@@ -25,7 +25,7 @@ train_idx = np.array(list(set(X.index.values) - set(test_idx)))
 
 # train a isomap model
 n_comp = 1 # number of components
-component = Isomap(n_components=n_comp, n_neighbors=20, n_jobs=1)
+component = Isomap(n_components=n_comp, n_neighbors=5, n_jobs=1)
 component.fit(X.iloc[train_idx, :])
 
 # compute components for all the data, add cluster labels and train/test labels
