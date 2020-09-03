@@ -9,6 +9,7 @@ Reduces the columns of a data set with an Isomap model
 import numpy as np
 import pandas as pd
 from sklearn.manifold import Isomap
+from sklearn.ensemble import RandomForestRegressor
 from plots import scatter_plot, corr_plot
 
 
@@ -39,13 +40,28 @@ for j in test_idx:
 # combine the data and components
 data = pd.concat([X, components], axis=1)
 
-# plot the variables vs. components
-comp_ = 0 # the column number of a component to plot
-for c in X.columns:
-    scatter_plot(data=data,
-                 x=c, y=components.columns[comp_],
-                 color=None, title="Isomaps",
-                 legend=True, save=False)
-
 # plot correlations
 corr_plot(data.drop(columns="Data"))
+
+# train a random forest to learn the clusters
+model = RandomForestRegressor(n_estimators=50, max_depth=10,
+                              min_samples_leaf=5, max_features="sqrt",
+                              random_state=42, n_jobs=1)
+model.fit(X, components.drop(columns="Data"))
+
+# collect and sort feature importance
+importance = pd.DataFrame({"name": X.columns,
+                           "importance": model.feature_importances_})
+importance = importance.sort_values(by="importance", ascending=False).reset_index(drop=True)
+
+# choose how many features to plot
+num_features = 3
+features = importance.loc[:(num_features - 1), "name"].tolist()
+
+# plot the variables vs. components
+comp_ = 0 # the column number of a component to plot
+for c in features:
+    scatter_plot(data=data,
+                 x=c, y=components.columns[comp_],
+                 color=None, title="Isomap",
+                 legend=True, save=False)
