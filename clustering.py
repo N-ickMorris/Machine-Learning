@@ -7,7 +7,7 @@ Creates k-Means Clusters
 
 
 import pandas as pd
-from sklearn.cluster import KMeans
+from sklearn.cluster import AgglomerativeClustering
 
 
 # read in the data
@@ -16,13 +16,11 @@ X_copy = pd.read_csv("X clean.csv")
 # standardize the data to take on values between 0 and 1
 X = ((X_copy - X_copy.min()) / (X_copy.max() - X_copy.min())).copy()
 
-# train a k-means model
-cluster = KMeans(n_clusters=6, n_init=20, max_iter=300, tol=0.0001, random_state=42,
-                 n_jobs=1)
-cluster.fit(X)
-
-# compute clusters for all the data
-labels = pd.DataFrame(cluster.predict(X), columns=["Cluster"])
+# create clusters
+num = 6
+hclust = AgglomerativeClustering(n_clusters=num, linkage="ward", distance_threshold=None)
+hclust.fit(X)
+labels = pd.DataFrame(hclust.labels_, columns=["Cluster"])
 
 # convert any string columns to binary columns
 labels["Cluster"] = labels["Cluster"].astype(str)
