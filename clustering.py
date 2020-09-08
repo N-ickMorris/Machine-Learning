@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Creates k-Means Clusters
+Creates Hierarchical Clusters
 
 @author: Nick
 """
