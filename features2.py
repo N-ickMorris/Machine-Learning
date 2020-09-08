@@ -11,7 +11,7 @@ import numpy as np
 import pandas as pd
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.cluster import FeatureAgglomeration
-from plots import plot_dendrogram
+from plots import plot_dendrogram, corr_plot
 
 # read in the data
 X_copy = pd.read_csv("X clean.csv")
@@ -27,6 +27,9 @@ X_copy = X_copy.loc[:, (X_copy != X_copy.iloc[0]).any()]
 
 # standardize the data to take on values between 0 and 1
 X = ((X_copy - X_copy.min()) / (X_copy.max() - X_copy.min())).copy()
+
+# plot the correlations in the data to visualize clusters
+corr_plot(X, method="ward")
 
 # plot the model to see how many features to keep
 hclust = FeatureAgglomeration(n_clusters=None, linkage="ward", distance_threshold=0)

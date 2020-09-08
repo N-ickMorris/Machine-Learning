@@ -85,7 +85,7 @@ def scatter_plot(data, x, y, color, title=" ", legend=True, save=False):
         plt.show()
 
 
-def corr_plot(df, size=10, method="complete"):
+def corr_plot(df, size=10, method="ward"):
     # group columns together with hierarchical clustering
     X = df.corr().values
     d = sch.distance.pdist(X)
