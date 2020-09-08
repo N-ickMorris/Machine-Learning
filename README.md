@@ -40,9 +40,9 @@
 ## Time Series
 - lstm.py *: Forecast with a Long Short Term Memory Neural Network model*
 - hmm.py *: Forecast (states) with a Hidden Markov Model*
-- arima.py *: Forecast with an Autoregressive Integrated Moving Average model* (Regression Only)
-- exp.py *: Forecast with a Simple Exponential Smoothing model* (Regression Only)
-- holt.py *: Forecast with a Holt-Winter's model* (Regression Only)
+- arima.py *: Rolling forecast with an Autoregressive Integrated Moving Average model* (Regression Only)
+- exp.py *: Rolling forecast with a Simple Exponential Smoothing model* (Regression Only)
+- holt.py *: Rolling forecast with a Holt-Winter's model* (Regression Only)
 
 ## Natural Language Processing
 - words.py *: Rank words on how well they predict text clusters (topics)*
