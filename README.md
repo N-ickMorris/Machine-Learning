@@ -20,6 +20,7 @@
 
 ## Unsupervised
 - kmeans.py *: Cluster with a k-Means model*
+- hclust.py *: Cluster with a Hierarchical Clustering model*
 - birch.py *: Cluster with a Birch model*
 - mixture.py *: Cluster with a Gaussian Mixture model*
 - mean.py *: Cluster with a Mean Shift model*
