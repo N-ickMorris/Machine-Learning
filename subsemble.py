@@ -12,10 +12,8 @@ from mlens.ensemble import Subsemble
 from sklearn.linear_model import LogisticRegression, Lasso
 from sklearn.neighbors import KNeighborsClassifier, KNeighborsRegressor
 from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
-from sklearn.svm import LinearSVC, LinearSVR
 from sklearn.linear_model import BayesianRidge
 from sklearn.naive_bayes import GaussianNB
-from sklearn.gaussian_process import GaussianProcessClassifier, GaussianProcessRegressor
 from sklearn.metrics import confusion_matrix, accuracy_score, r2_score
 from plots import matrix_plot, parity_plot, series_plot
 
@@ -45,10 +43,16 @@ train_idx = np.array(list(set(X.index.values) - set(test_idx)))
 # set up the model
 if classifier:
     model = Subsemble(partitions=2, random_state=42, n_jobs=1)
-    model.add(LogisticRegression(penalty="l1", solver="saga")).add(KNeighborsClassifier()).add(RandomForestClassifier()).add(LinearSVC()).add(GaussianNB()).add(GaussianProcessClassifier()).add_meta(RandomForestClassifier())
+    model.add(KNeighborsClassifier())
+    model.add(RandomForestClassifier())
+    model.add(GaussianNB())
+    model.add_meta(LogisticRegression(penalty="l1", solver="saga"))
 else:
     model = Subsemble(partitions=2, random_state=42, n_jobs=1)
-    model.add(Lasso()).add(KNeighborsRegressor()).add(RandomForestRegressor()).add(LinearSVR()).add(BayesianRidge()).add(GaussianProcessRegressor()).add_meta(RandomForestRegressor())
+    model.add(KNeighborsRegressor())
+    model.add(RandomForestRegressor())
+    model.add(BayesianRidge())
+    model.add_meta(Lasso())
 
 # train and predict
 train_predict = pd.DataFrame()
