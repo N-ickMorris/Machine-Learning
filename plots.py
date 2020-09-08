@@ -85,11 +85,11 @@ def scatter_plot(data, x, y, color, title=" ", legend=True, save=False):
         plt.show()
 
 
-def corr_plot(df, size=10):
+def corr_plot(df, size=10, method="complete"):
     # group columns together with hierarchical clustering
     X = df.corr().values
     d = sch.distance.pdist(X)
-    L = sch.linkage(d, method="complete")
+    L = sch.linkage(d, method=method)
     ind = sch.fcluster(L, 0.5*d.max(), "distance")
     columns = [df.columns.tolist()[i] for i in list((np.argsort(ind)))]
     df = df.reindex(columns, axis=1)
@@ -104,4 +104,25 @@ def corr_plot(df, size=10):
     plt.yticks(range(len(corr.columns)), corr.columns);
     
     # add the colorbar legend
-    cbar = fig.colorbar(cax, ticks=[-1, 0, 1], aspect=40, shrink=.8)
+    fig.colorbar(cax, ticks=[-1, 0, 1], aspect=40, shrink=.8)
+
+def plot_dendrogram(model, **kwargs):
+    # Create linkage matrix and then plot the dendrogram
+
+    # create the counts of samples under each node
+    counts = np.zeros(model.children_.shape[0])
+    n_samples = len(model.labels_)
+    for i, merge in enumerate(model.children_):
+        current_count = 0
+        for child_idx in merge:
+            if child_idx < n_samples:
+                current_count += 1  # leaf node
+            else:
+                current_count += counts[child_idx - n_samples]
+        counts[i] = current_count
+
+    linkage_matrix = np.column_stack([model.children_, model.distances_,
+                                      counts]).astype(float)
+
+    # Plot the corresponding dendrogram
+    sch.dendrogram(linkage_matrix, **kwargs)

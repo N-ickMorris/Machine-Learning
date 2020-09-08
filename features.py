@@ -48,14 +48,19 @@ else:
                                          n_jobs=1), step=0.05, verbose=1)
 
 # determine which features to keep
-keep_idx = np.repeat(0, X.shape[1])
-for j in Y.columns:
-    selector.fit(X, Y.loc[:, j])
-    keep_j = selector.support_ * 1
-    keep_idx = keep_idx + keep_j
-    print("--")
-keep = np.where(keep_idx > 0)[0]
-X = X.iloc[:, keep]
+C = X.shape[1] # columns
+R = X.shape[0] # rows
+while C > R / 4:
+    keep_idx = np.repeat(0, X.shape[1])
+    for j in Y.columns:
+        selector.fit(X, Y.loc[:, j])
+        keep_j = selector.support_ * 1
+        keep_idx = keep_idx + keep_j
+        print("--")
+    keep = np.where(keep_idx > 0)[0]
+    X = X.iloc[:, keep]
+    C = X.shape[1] # columns
+    R = X.shape[0] # rows
 
 # export the data
 X.to_csv("X clean.csv", index=False)
