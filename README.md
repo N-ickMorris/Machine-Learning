@@ -29,7 +29,7 @@
 - lle.py *: Embed with a Locally Linear Embedding model*
 
 ## Preprocessing
-- clean.py *: Fill in missing values, makes all value numeric*
+- clean.py *: Fill in missing values, make all values numeric*
 - outliers.py *: Remove outliers*
 - features.py *: Generate features and select features*
 - features2.py *: Generate features and select features*
