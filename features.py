@@ -13,10 +13,20 @@ from sklearn.preprocessing import PolynomialFeatures
 from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
 from sklearn.feature_selection import RFE
 
+# should we include division in the polynomials?
+DIVISION = False
 
 # read in the data
 X = pd.read_csv("X clean.csv")
 Y = pd.read_csv("Y clean.csv")
+
+# add reciprocal features if desired
+if DIVISION:
+    X_recip = (1 / X).copy()
+    X_recip.columns = ["recip_" + str(c) for c in X_recip.columns]
+    X_recip = X_recip.replace([np.inf, -np.inf], np.nan).dropna(axis=1)
+    X = pd.concat([X, X_recip], axis=1)
+    del X_recip
 
 # determine if we are building a classifier model
 classifier = np.all(np.unique(Y.to_numpy()) == [0, 1])

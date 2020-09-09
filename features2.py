@@ -13,8 +13,20 @@ from sklearn.preprocessing import PolynomialFeatures
 from sklearn.cluster import FeatureAgglomeration
 from plots import plot_dendrogram, corr_plot
 
+
+# should we include division in the polynomials?
+DIVISION = False
+
 # read in the data
 X_copy = pd.read_csv("X clean.csv")
+
+# add reciprocal features if desired
+if DIVISION:
+    X_recip = (1 / X_copy).copy()
+    X_recip.columns = ["recip_" + str(c) for c in X_recip.columns]
+    X_recip = X_recip.replace([np.inf, -np.inf], np.nan).dropna(axis=1)
+    X_copy = pd.concat([X_copy, X_recip], axis=1)
+    del X_recip
 
 # add 2nd order polynomial features to X
 poly = PolynomialFeatures(2, include_bias=False)
