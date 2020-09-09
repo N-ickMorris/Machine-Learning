@@ -33,8 +33,6 @@
 - outliers.py *: Remove outliers*
 - features.py *: Generate features and select features*
 - features2.py *: Generate features and select features*
-- embedding.py *: Add embeddings to features*
-- clustering.py *: Add clusters to features*
 - timeLag.py *: Add time-lagged features to features*
 
 ## Time Series
