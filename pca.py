@@ -8,6 +8,7 @@ Reduces the columns of a data set with a Principal Component Analysis model
 
 import numpy as np
 import pandas as pd
+from sklearn.preprocessing import MinMaxScaler
 from sklearn.decomposition import PCA
 from sklearn.ensemble import RandomForestRegressor
 from plots import scatter_plot, corr_plot
@@ -16,8 +17,11 @@ from plots import scatter_plot, corr_plot
 # read in the data
 X = pd.read_csv("X clean.csv")
 
-# standardize the data to take on values between 0 and 1
-X = (X - X.min()) / (X.max() - X.min())
+# standardize the inputs to take on values between 0 and 1
+x_columns = X.columns
+scaler = MinMaxScaler()
+X = scaler.fit_transform(X)
+X = pd.DataFrame(X, columns=x_columns)
 
 # separate the data into training and testing
 np.random.seed(1)

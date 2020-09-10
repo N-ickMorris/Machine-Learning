@@ -7,6 +7,7 @@ Trains and tests a Tensorflow Long Short Term Memory Neural Network model on dat
 
 import numpy as np
 import pandas as pd
+from sklearn.preprocessing import MinMaxScaler
 import keras
 from keras import layers, optimizers, regularizers
 from sklearn.metrics import confusion_matrix, accuracy_score, r2_score
@@ -20,7 +21,10 @@ X = pd.read_csv('X time.csv')
 Y = pd.read_csv('Y time.csv')
 
 # standardize the inputs to take on values between 0 and 1
-X = (X - X.min()) / (X.max() - X.min())
+x_columns = X.columns
+scaler = MinMaxScaler()
+X = scaler.fit_transform(X)
+X = pd.DataFrame(X, columns=x_columns)
 
 # determine if we are building a classifier model
 classifier = np.all(np.unique(Y.to_numpy()) == [0, 1])

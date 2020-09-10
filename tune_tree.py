@@ -8,16 +8,20 @@ Tunes a Decision Tree model on data
 
 import numpy as np
 import pandas as pd
+from sklearn.preprocessing import MinMaxScaler
 from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor
 from sklearn.model_selection import RandomizedSearchCV
 
 
 # read in the data
-X = pd.read_csv("X clean.csv")
-Y = pd.read_csv("Y clean.csv").iloc[:,[0]]
+X = pd.read_csv("X ansur.csv")
+Y = pd.read_csv("Y ansur.csv").iloc[:,[0]]
 
 # standardize the inputs to take on values between 0 and 1
-X = (X - X.min()) / (X.max() - X.min())
+x_columns = X.columns
+scaler = MinMaxScaler()
+X = scaler.fit_transform(X)
+X = pd.DataFrame(X, columns=x_columns)
 
 # determine if we are building a classifier model
 classifier = np.all(np.unique(Y.to_numpy()) == [0, 1])
@@ -27,7 +31,7 @@ if classifier:
     model = DecisionTreeClassifier(max_depth=14,
                                    min_samples_leaf=5,
                                    max_features="sqrt",
-				   class_weight="balanced",
+                                   class_weight="balanced",
                                    random_state=42)
 else:
     model = DecisionTreeRegressor(max_depth=14,
@@ -38,7 +42,7 @@ else:
 # set up the tuner
 parameters = {"max_depth": [6, 10, 14, 18],
               "min_samples_leaf": [1, 3, 5, 10]}
-grid = RandomizedSearchCV(model, parameters, n_iter=16, cv=3, 
+grid = RandomizedSearchCV(model, parameters, n_iter=16, cv=3,
                           random_state=0, n_jobs=None)
 
 # tune the model
@@ -46,4 +50,4 @@ search = grid.fit(X, Y)
 
 # export results
 results = pd.DataFrame(search.best_params_, index=[0])
-results.to_csv("tune tree.csv", index=False)
+# results.to_csv("tune tree.csv", index=False)

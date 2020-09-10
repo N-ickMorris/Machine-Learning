@@ -8,6 +8,7 @@ Tunes an Extreme Gradient Boosting Tree model on data
 
 import numpy as np
 import pandas as pd
+from sklearn.preprocessing import MinMaxScaler
 from xgboost.sklearn import XGBRegressor, XGBClassifier
 from sklearn.model_selection import RandomizedSearchCV
 
@@ -17,7 +18,10 @@ X = pd.read_csv("X arrest.csv")
 Y = pd.read_csv("Y arrest.csv").iloc[:,[0]]
 
 # standardize the inputs to take on values between 0 and 1
-X = (X - X.min()) / (X.max() - X.min())
+x_columns = X.columns
+scaler = MinMaxScaler()
+X = scaler.fit_transform(X)
+X = pd.DataFrame(X, columns=x_columns)
 
 # determine if we are building a classifier model
 classifier = np.all(np.unique(Y.to_numpy()) == [0, 1])

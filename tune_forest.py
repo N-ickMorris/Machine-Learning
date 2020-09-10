@@ -8,16 +8,20 @@ Tunes a Random Forest model on data
 
 import numpy as np
 import pandas as pd
+from sklearn.preprocessing import MinMaxScaler
 from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
 from sklearn.model_selection import RandomizedSearchCV
 
 
 # read in the data
-X = pd.read_csv("X arrest.csv")
-Y = pd.read_csv("Y arrest.csv").iloc[:,[0]]
+X = pd.read_csv("X elect.csv")
+Y = pd.read_csv("Y elect.csv").iloc[:,[0]]
 
 # standardize the inputs to take on values between 0 and 1
-X = (X - X.min()) / (X.max() - X.min())
+x_columns = X.columns
+scaler = MinMaxScaler()
+X = scaler.fit_transform(X)
+X = pd.DataFrame(X, columns=x_columns)
 
 # determine if we are building a classifier model
 classifier = np.all(np.unique(Y.to_numpy()) == [0, 1])
@@ -51,4 +55,4 @@ search = grid.fit(X, Y)
 
 # export results
 results = pd.DataFrame(search.best_params_, index=[0])
-results.to_csv("tune forest.csv", index=False)
+# results.to_csv("tune forest.csv", index=False)

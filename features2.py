@@ -9,7 +9,8 @@ Selects unique features using Hierarchical Clustering
 
 import numpy as np
 import pandas as pd
-from sklearn.preprocessing import PolynomialFeatures
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.preprocessing import PolynomialFeatures, MinMaxScaler
 from sklearn.cluster import FeatureAgglomeration
 from plots import plot_dendrogram, corr_plot
 
@@ -37,8 +38,11 @@ X_copy.columns = poly.get_feature_names(x_columns)
 # drop any constant columns in X
 X_copy = X_copy.loc[:, (X_copy != X_copy.iloc[0]).any()]
 
-# standardize the data to take on values between 0 and 1
-X = ((X_copy - X_copy.min()) / (X_copy.max() - X_copy.min())).copy()
+# standardize the inputs to take on values between 0 and 1
+x_columns = X_copy.columns
+scaler = MinMaxScaler()
+X = scaler.fit_transform(X_copy)
+X = pd.DataFrame(X, columns=x_columns)
 
 # plot the correlations in the data to visualize clusters
 corr_plot(X, method="ward")

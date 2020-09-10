@@ -8,6 +8,7 @@ Trains and tests a k-Means clustering model on data
 
 import numpy as np
 import pandas as pd
+from sklearn.preprocessing import MinMaxScaler
 from sklearn.cluster import KMeans
 from sklearn.decomposition import PCA
 from sklearn.ensemble import RandomForestClassifier
@@ -18,8 +19,11 @@ from plots import pairs_plot
 # read in the data
 X = pd.read_csv("X clean.csv")
 
-# standardize the data to take on values between 0 and 1
-X = (X - X.min()) / (X.max() - X.min())
+# standardize the inputs to take on values between 0 and 1
+x_columns = X.columns
+scaler = MinMaxScaler()
+X = scaler.fit_transform(X)
+X = pd.DataFrame(X, columns=x_columns)
 
 # separate the data into training and testing
 np.random.seed(1)

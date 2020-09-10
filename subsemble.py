@@ -8,6 +8,7 @@ Trains and tests a Subsemble model on data
 
 import numpy as np
 import pandas as pd
+from sklearn.preprocessing import MinMaxScaler
 from mlens.ensemble import Subsemble
 from sklearn.linear_model import LogisticRegression, Lasso
 from sklearn.neighbors import KNeighborsClassifier, KNeighborsRegressor
@@ -26,7 +27,10 @@ X = pd.read_csv("X clean.csv")
 Y = pd.read_csv("Y clean.csv")
 
 # standardize the inputs to take on values between 0 and 1
-X = (X - X.min()) / (X.max() - X.min())
+x_columns = X.columns
+scaler = MinMaxScaler()
+X = scaler.fit_transform(X)
+X = pd.DataFrame(X, columns=x_columns)
 
 # determine if we are building a classifier model
 classifier = np.all(np.unique(Y.to_numpy()) == [0, 1])

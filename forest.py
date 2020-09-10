@@ -8,6 +8,7 @@ Trains and tests a Random Forest model on data
 
 import numpy as np
 import pandas as pd
+from sklearn.preprocessing import MinMaxScaler
 from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
 from sklearn.multioutput import MultiOutputClassifier, MultiOutputRegressor
 from sklearn.metrics import confusion_matrix, accuracy_score, r2_score
@@ -22,7 +23,10 @@ X = pd.read_csv("X clean.csv")
 Y = pd.read_csv("Y clean.csv")
 
 # standardize the inputs to take on values between 0 and 1
-X = (X - X.min()) / (X.max() - X.min())
+x_columns = X.columns
+scaler = MinMaxScaler()
+X = scaler.fit_transform(X)
+X = pd.DataFrame(X, columns=x_columns)
 
 # determine if we are building a classifier model
 classifier = np.all(np.unique(Y.to_numpy()) == [0, 1])
@@ -42,7 +46,7 @@ if classifier:
                                                          max_depth=14,
                                                          min_samples_leaf=5,
                                                          max_features="sqrt",
-							 class_weight="balanced_subsample",
+                                                         class_weight="balanced_subsample",
                                                          random_state=42,
                                                          n_jobs=1))
 else:

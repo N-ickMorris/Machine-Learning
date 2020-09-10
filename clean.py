@@ -9,6 +9,7 @@ Cleans up a data set to have no missing values and only numbers
 import numpy as np
 import pandas as pd
 from sklearn.impute import SimpleImputer
+from sklearn.feature_extraction.text import TfidfVectorizer
 
 
 # read in the data
@@ -32,9 +33,36 @@ X = pd.DataFrame(data=impute.fit_transform(X), columns=x_columns)
 y_columns = Y.columns
 Y = pd.DataFrame(impute.fit_transform(Y), columns=y_columns)
 
-# convert any string columns to binary columns
-X = pd.get_dummies(X, columns=x_columns[x_str])
-Y = pd.get_dummies(Y, columns=y_columns[y_str])
+# get the text columns from the data
+text_x = X.iloc[:, x_str]
+text_y = Y.iloc[:, y_str]
+X = X.drop(columns=x_columns[x_str])
+Y = Y.drop(columns=y_columns[y_str])
+
+# collect the words (and their inverse frequencies) from each document
+# 'matrix_x' is a term (columns) document (rows) matrix
+matrix_x = pd.DataFrame()
+for c in text_x.columns:
+    vector = TfidfVectorizer()
+    matrix2 = vector.fit_transform(text_x[c].tolist())
+    names = vector.get_feature_names()
+    names = [str(c) + " " + str(n) for n in names]
+    matrix2 = pd.DataFrame(matrix2.toarray(), columns=names)
+    matrix_x = pd.concat([matrix_x, matrix2], axis=1)
+
+# 'matrix_y' is a term (columns) document (rows) matrix
+matrix_y = pd.DataFrame()
+for c in text_y.columns:
+    vector = TfidfVectorizer()
+    matrix2 = vector.fit_transform(text_y[c].tolist())
+    names = vector.get_feature_names()
+    names = [str(c) + " " + str(n) for n in names]
+    matrix2 = pd.DataFrame(matrix2.toarray(), columns=names)
+    matrix_y = pd.concat([matrix_y, matrix2], axis=1)
+
+# combine the data
+X = pd.concat([X, matrix_x], axis=1)
+Y = pd.concat([Y, matrix_y], axis=1)
 
 # export the data
 X.to_csv("X clean.csv", index=False)
