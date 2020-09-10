@@ -27,6 +27,7 @@ x_columns = X.columns
 scaler = MinMaxScaler()
 X = scaler.fit_transform(X)
 X = pd.DataFrame(X, columns=x_columns)
+X = X.dropna(axis=1)
 
 # determine if we are building a classifier model
 classifier = np.all(np.unique(Y.to_numpy()) == [0, 1])
@@ -43,13 +44,13 @@ train_idx = np.array(list(set(X.index.values) - set(test_idx)))
 # set up the model
 if classifier:
     model = MultiOutputClassifier(LogisticRegressionCV(penalty="l1", solver="saga",
-                                                       Cs=20, cv=3, tol=1e-4,
+                                                       Cs=16, cv=3, tol=1e-4,
                                                        max_iter=500,
                                                        class_weight="balanced",
                                                        random_state=42,
                                                        n_jobs=1))
 else:
-    model = MultiOutputRegressor(LassoCV(eps=1e-9, n_alphas=20, cv=3,
+    model = MultiOutputRegressor(LassoCV(eps=1e-9, n_alphas=16, cv=3,
                                          tol=1e-4, max_iter=500, random_state=42,
                                          n_jobs=1))
 
