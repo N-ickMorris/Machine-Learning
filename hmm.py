@@ -46,5 +46,5 @@ scatter_plot(data=states,
              x="index", y="Difference",
              color="State", title="Hidden Markov Model",
              legend=True, save=False)
-pairs_plot(data=states, vars=["index", "Actual", "Difference"],
+pairs_plot(data=states, vars=["Actual", "Difference"],
            color="State", title="Hidden Markov Model", save=False)
