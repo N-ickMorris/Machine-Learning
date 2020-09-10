@@ -37,7 +37,7 @@ states.to_csv("hmm states.csv", index=False)
 
 # In[2]: Visualize the states
 
-# plot the states on the predicted values
+# plot the states on the actual values
 scatter_plot(data=states,
              x="index", y="Actual",
              color="State", title="Hidden Markov Model",
