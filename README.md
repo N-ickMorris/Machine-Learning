@@ -44,6 +44,7 @@
 - arima.py *: Rolling forecast with an Autoregressive Integrated Moving Average model* (Regression Only)
 - exp.py *: Rolling forecast with a Simple Exponential Smoothing model* (Regression Only)
 - holt.py *: Rolling forecast with a Holt-Winter's model* (Regression Only)
+- rolling_bayes.py *: Rolling forecast with a Bayesian Ridge Regression model* (Regression Only)
 
 ## Natural Language Processing
 - words.py *: Rank words on how well they predict text clusters (topics)*
