@@ -10,6 +10,8 @@
 - keras.py     *: Predict with a Neural Network model*
 - subsemble.py *: Predict with an Ensemble of models and partitions*
 - blend.py     *: Predict with an Ensemble of models*
+- pipe_lasso.py *: Predict with a Lasso Regression pipeline*
+- pipe_nnet.py  *: Predict with a Neural Network pipeline*
 
 ## Model Tuning
 - tune_knn.py *: Tunes a k-Nearest Neighbors model with a random grid search*
