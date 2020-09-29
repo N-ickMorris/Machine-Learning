@@ -28,7 +28,7 @@ def parity(df, predict, actual, color=None, title=None, font_size=None):
 
 def series(df, predict, actual, color=None, title=None, font_size=None):
     df = df.reset_index()
-    fig = px.line(df, x="index", y=predict, color=color, title=title)
+    fig = px.scatter(df, x="index", y=predict, color=color, title=title)
     fig.add_trace(go.Scatter(x=df["index"], y=df[actual], mode="lines", showlegend=False, name="Actual"))
     fig.update_layout(font=dict(size=font_size))
     plot(fig)
