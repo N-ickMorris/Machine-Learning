@@ -51,3 +51,4 @@
 
 ## Graphics
 - plots.py *: Plot with seaborn*
+- plotting.py *: Plot with plot.ly*
