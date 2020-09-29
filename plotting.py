@@ -37,3 +37,9 @@ def histogram(df, x, color=None, title=None, font_size=None):
     fig = px.histogram(df, x=x, color=color, title=title, marginal="box")
     fig.update_layout(font=dict(size=font_size))
     plot(fig)
+
+def pairs(df, color=None, title=None, font_size=None):
+    fig = px.scatter_matrix(df, color=color, title=title)
+    fig.update_traces(diagonal_visible=False)
+    fig.update_layout(font=dict(size=font_size))
+    plot(fig)
