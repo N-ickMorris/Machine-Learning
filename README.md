@@ -17,6 +17,7 @@
 - tune_tree.py *: Tunes a Decision Tree model with a random grid search*
 - tune_forest.py *: Tunes a Random Forest model with a random grid search*
 - tune_xgboost.py *: Tunes a XGBoost Tree model with a random grid search*
+- doe.R *: Selects an optimal subset of a grid search*
 
 ## Unsupervised
 - kmeans.py *: Cluster with a k-Means model*
